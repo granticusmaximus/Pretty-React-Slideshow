@@ -1,37 +1,79 @@
 {
   "name": "pretty-slideshow-react",
   "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.4.0",
-    "@testing-library/user-event": "^7.2.1",
-    "@types/tweenjs": "^1.0.0",
-    "prop-types": "^15.7.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-scripts": "3.3.0",
-    "tweenjs": "^1.0.2"
+  "author": "Grant Watson",
+  "description": "An image slideshow with react",
+  "files": [
+    "lib",
+    "dist"
+  ],
+  "npmFileMap": [
+    {
+      "basePath": "/dist/",
+      "files": [
+        "*.js"
+      ]
+    }
+  ],
+  "keywords": [
+    "image",
+    "react",
+    "Image slider",
+    "Slideshow",
+    "react",
+    "fade",
+    "zoom"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/granticusmaximus/Pretty-React-Slideshow.gits"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-jest": "^24.8.0",
+    "babel-loader": "^8.0.6",
+    "codecov": "^3.1.0",
+    "extract-text-webpack-plugin": "4.0.0-alpha.0",
+    "html-webpack-plugin": "^3.0.0",
+    "husky": "^0.14.3",
+    "jest": "^24.8.0",
+    "lint-staged": "^7.3.0",
+    "prettier": "^1.14.3",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-testing-library": "^5.2.0",
+    "serve": "^10.0.2",
+    "webpack": "^4.35.0",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.14"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "peerDependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+  "lint-staged": {
+    "{src,__tests__}/**/*.{js,jsx,json,css}": [
+      "prettier --single-quote --write",
+      "git add ."
     ]
+  },
+  "main": "lib/index.js",
+  "scripts": {
+    "dev": "webpack-dev-server",
+    "build": "webpack --config webpack.config.dist.js",
+    "heroku-postbuild": "npm i --only=dev && webpack && cp -r src/images public",
+    "start": "serve public/",
+    "precommit": "lint-staged",
+    "test": "jest && codecov",
+    "prepublishOnly": "NODE_ENV=production babel src/lib --out-dir lib --copy-files && npm run build"
+  },
+  "dependencies": {
+    "@tweenjs/tween.js": "^17.2.0",
+    "css-loader": "^3.0.0",
+    "prop-types": "^15.5.10",
+    "style-loader": "^0.20.2"
   }
 }
